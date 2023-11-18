@@ -13,7 +13,7 @@ class Board extends CI_Controller {
     // 글목록
 	public function index()
 	{
-        echo "<pre>"; print_r($_GET); echo "</pre>";
+        //echo "<pre>"; print_r($_GET); echo "</pre>";
         $this->load->library('pagination');     // 페이지네이션 구현을 위한 라이브러리 호출
 
         $config['base_url']    = '/board/';
@@ -113,4 +113,3 @@ class Board extends CI_Controller {
     }
 
 }
-
