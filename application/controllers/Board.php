@@ -25,7 +25,7 @@ class Board extends CI_Controller {
 
         $this->pagination->initialize($config);
 
-        $page = ($this->uri->segment(2)) ? $this->uri->segment(2) : 1;
+        $page = $this->uri->segment(2) ? $this->uri->segment(2) : 1;
 
         $from_record = ($page - 1) * $config['per_page'];
         //echo "from_record : " . $from_record."<br/>\n";

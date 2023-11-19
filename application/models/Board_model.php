@@ -41,7 +41,7 @@ class Board_model extends CI_Model {
             $this->db->limit($limit, $from_record);
             $this->db->order_by('idx', 'DESC');
             $board = $this->db->get('boards')->result();
-            echo "<pre style='font-size:12px;color:brown'>".$this->db->last_query()."</pre>\n";     // 쿼리출력
+            echo $this->db->last_query();     // 쿼리출력
         }
 
         //var_dump($board);

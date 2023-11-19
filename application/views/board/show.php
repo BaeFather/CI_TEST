@@ -1,4 +1,4 @@
-<table border="1" width="600">
+<table style="width: 600px" border="1">
     <colgroup>
         <col width="100">
         <col width="">
@@ -13,7 +13,7 @@
     </tr>
     <tr>
         <th>내용</th>
-        <td><?=$view->contents;?></td>
+        <td><?=nl2br($view->contents);?></td>
     </tr>
 </table>
 
