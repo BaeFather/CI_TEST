@@ -1,6 +1,6 @@
 <?php
 
-class Board_model extends CI_Model {
+class Board_Model extends CI_Model {
 
     public function __construct()
     {
@@ -13,7 +13,9 @@ class Board_model extends CI_Model {
 		$data = [
 			'title' => $this->input->post('title'),
 			'contents' => $this->input->post('contents'),
-			'regdate' => date('Y-m-d H:i:s')
+			'regdate' => date('Y-m-d H:i:s'),
+			'ip' => $_SERVER['REMOTE_ADDR'],
+			'agent' => $_SERVER['HTTP_USER_AGENT']
 		];
 
 		$result = $this->db->insert('boards', $data);
@@ -53,7 +55,7 @@ class Board_model extends CI_Model {
         $data = [
             'title'    => $this->input->post('title'),
             'contents' => $this->input->post('contents'),
-            'editdate' => date('Y-m-d H:i:s')
+			'editdate' => date('Y-m-d H:i:s')
         ];
 
         $result = $this->db->where('idx', $idx)->update('boards', $data);
@@ -76,5 +78,14 @@ class Board_model extends CI_Model {
         $result = $this->db->delete('boards', array('idx' => $idx));
         return $result;
     }
+
+	public function countup($idx)
+	{
+		$this->db->where('idx', $idx);
+		$this->db->set('cnt', 'cnt + 1', false);	// escape false 되면 쿼리문상에 싱글쿼트를 제거한다.
+
+		$result = $this->db->update('boards');
+		return $result;
+	}
 
 }

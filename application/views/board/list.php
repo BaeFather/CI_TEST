@@ -5,12 +5,14 @@
         <col style="width:60px">
         <col>
         <col style="width:200px">
+		<col style="width:60px">
         <col style="width:200px">
     </colgroup>
     <tr>
         <th>no</th>
         <th>제목</th>
         <th>등록일시</th>
+		<th>조회</th>
         <th>관리</th>
     </tr>
 <?php
@@ -21,6 +23,7 @@ foreach ($list as $LIST) {
         <td align="center"><?=$no?></td>
         <td><?=$LIST->title?></td>
         <td align="center"><?=$LIST->regdate?></td>
+		<td align="center"><?=number_format($LIST->cnt)?></td>
         <td align="center">
             <a href="/board/show/<?=$LIST->idx?>">View</a>
             <a href="/board/edit/<?=$LIST->idx?>">Edit</a>
@@ -33,11 +36,11 @@ foreach ($list as $LIST) {
 }
 ?>
     <tr>
-        <th colspan="4"><?=$pages?></th>
+        <th colspan="5"><?=$pages?></th>
     </tr>
     <form id="searchForm" method="get">
         <tr>
-            <td colspan="4" align="center">
+            <td colspan="5" align="center">
                 <select id="searchField" name="searchField">
                     <option value="">::검색::</option>
                     <option value="title">제목</option>
