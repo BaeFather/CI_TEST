@@ -8,7 +8,7 @@ class Board extends CI_Controller {
     {
         parent::__construct();
         $this->load->library('form_validation');        // 폼 유효성 검사 라이브러리 호출
-        $this->load->model('Board_model', 'board');     // 모델 호출 및 별칭"board" 설정
+        $this->load->model('Board_model', 'board_model');     // 모델 호출 및 별칭"board" 설정
     }
 
 	// 글쓰기
@@ -24,7 +24,7 @@ class Board extends CI_Controller {
 		$this->form_validation->set_rules('contents', 'Contents', 'required');
 
 		if($this->form_validation->run()) {
-			$this->board->store();      // Board_model.php store() 실행
+			$this->board_model->store();
 			redirect('/board');  // 리스트로 보냄
 		}
 		else {
@@ -39,7 +39,7 @@ class Board extends CI_Controller {
         $this->load->library('pagination');     // 페이지네이션 구현을 위한 라이브러리 호출
 
         $config['base_url']    = '/board/';
-        $config['total_rows']  = $this->board->getAll('count');     // 전체 게시글수
+        $config['total_rows']  = $this->board_model->getAll('count');     // 전체 게시글수
         $config['per_page']    = 3;    // 페이지당 게시글 수
         $config['num_links']   = 10;   // 페이지당 출력 블록수
         $config['uri_segment'] = 2;    // URI 내의 페이지번호를 나타내는 위치점
@@ -59,7 +59,7 @@ class Board extends CI_Controller {
 */
         $data['pages'] = $this->pagination->create_links();
 
-        $data['list'] = $this->board->getAll('all', $config['per_page'], $from_record);       // Board_model.php getAll() 실행 -> 데이터배열을 가져온다.
+        $data['list'] = $this->board_model->getAll('all', $config['per_page'], $from_record);       // Board_model.php getAll() 실행 -> 데이터배열을 가져온다.
 
         $data['start_no'] = $config['total_rows'] - $from_record;
         //echo $data['start_no'] . "=" . $config['total_rows'] . "-" . $from_record ."<br/>\n";
@@ -72,7 +72,7 @@ class Board extends CI_Controller {
     // 상세보기(글번호)
     public function show($idx)
     {
-        $data['view'] = $this->board->get($idx);
+        $data['view'] = $this->board_model->get($idx);
 
         $this->load->view('board/show', $data);
     }
@@ -80,7 +80,7 @@ class Board extends CI_Controller {
     // 수정폼(글번호)
     public function edit($idx)
     {
-        $data['edit'] = $this->board->get($idx);
+        $data['edit'] = $this->board_model->get($idx);
 
         $this->load->view('board/edit', $data);
     }
@@ -92,7 +92,7 @@ class Board extends CI_Controller {
         $this->form_validation->set_rules('contents', 'Contents', 'required');
 
         if($this->form_validation->run()) {
-            $this->board->update($idx);
+            $this->board_model->update($idx);
             redirect('/board');
         }
         else {
@@ -102,14 +102,14 @@ class Board extends CI_Controller {
 
     // 히든 처리
     public function delete($idx) {
-        $this->board->delete($idx);
+        $this->board_model->delete($idx);
         redirect('/board');
     }
 
     // 삭제처리(글번호)
     public function drop($idx)
     {
-        $item = $this->board->drop($idx);
+        $item = $this->board_model->drop($idx);
 
         redirect('/board');
     }
