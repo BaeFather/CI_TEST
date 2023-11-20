@@ -1,11 +1,11 @@
 게시판 리스트 입니다.
 
-<table border="1" width="800" style="font-size:14px">
+<table style="width:800px;font-size:14px">
     <colgroup>
-        <col width="60">
-        <col width="">
-        <col width="200">
-        <col width="200">
+        <col style="width:60px">
+        <col>
+        <col style="width:200px">
+        <col style="width:200px">
     </colgroup>
     <tr>
         <th>no</th>
@@ -13,22 +13,22 @@
         <th>등록일시</th>
         <th>관리</th>
     </tr>
-<?
+<?php
 $no = $start_no;
 foreach ($list as $LIST) {
 ?>
     <tr>
         <td align="center"><?=$no?></td>
-        <td><?=$LIST->title;?></td>
-        <td align="center"><?=$LIST->regdate;?></td>
+        <td><?=$LIST->title?></td>
+        <td align="center"><?=$LIST->regdate?></td>
         <td align="center">
-            <a href="/board/show/<?=$LIST->idx;?>">View</a>
-            <a href="/board/edit/<?=$LIST->idx;?>">Edit</a>
-            <a href="javascript:;" onClick="boardProc('delete','<?=$LIST->idx;?>');">Delete</a>
-            <a href="javascript:;" onClick="boardProc('drop','<?=$LIST->idx;?>');">Drop</a>
+            <a href="/board/show/<?=$LIST->idx?>">View</a>
+            <a href="/board/edit/<?=$LIST->idx?>">Edit</a>
+            <a href="javascript:;" onClick="boardProc('delete','<?=$LIST->idx?>');">Delete</a>
+            <a href="javascript:;" onClick="boardProc('drop','<?=$LIST->idx?>');">Drop</a>
         </td>
     </tr>
-<?
+<?php
     $no--;
 }
 ?>

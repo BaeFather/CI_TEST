@@ -1,6 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
+// 기본 클래스명과 controller 파일명의 첫글자는 대문자로 지정해야한다.
 class Board extends CI_Controller {
 
     public function __construct()
@@ -9,6 +10,27 @@ class Board extends CI_Controller {
         $this->load->library('form_validation');        // 폼 유효성 검사 라이브러리 호출
         $this->load->model('Board_model', 'board');     // 모델 호출 및 별칭"board" 설정
     }
+
+	// 글쓰기
+	public function create()
+	{
+		$this->load->view('board/create');
+	}
+
+	// 등록 처리
+	public function store()
+	{
+		$this->form_validation->set_rules('title', 'Title', 'required');
+		$this->form_validation->set_rules('contents', 'Contents', 'required');
+
+		if($this->form_validation->run()) {
+			$this->board->store();      // Board_model.php store() 실행
+			redirect('/board');  // 리스트로 보냄
+		}
+		else {
+			echo "Store:필수데이터 입력누락";
+		}
+	}
 
     // 글목록
 	public function index()
@@ -20,8 +42,8 @@ class Board extends CI_Controller {
         $config['total_rows']  = $this->board->getAll('count');     // 전체 게시글수
         $config['per_page']    = 3;    // 페이지당 게시글 수
         $config['num_links']   = 10;   // 페이지당 출력 블록수
-        $config['uri_segment'] = 2;    // URI내의 페이지번호를 나타내는 위치점
-        $config['use_page_numbers'] = TRUE;     // URI 새그먼트는 페이징하는 아이템들의 시작 인덱스를 사용합니다. 실제 페이지 번호를 보여주고 싶다면, TRUE로 설정
+        $config['uri_segment'] = 2;    // URI 내의 페이지번호를 나타내는 위치점
+        $config['use_page_numbers'] = TRUE;     // URI 새그먼트는 페이징하는 아이템들의 시작 인덱스를 사용합니다. 실제 페이지 번호를 보여주고 싶다면, TRUE 설정
 
         $this->pagination->initialize($config);
 
@@ -46,26 +68,6 @@ class Board extends CI_Controller {
 
         $this->load->view('board/list', $data);
 	}
-
-    public function create()
-    {
-        $this->load->view('board/create');
-    }
-
-    // 등록 처리
-    public function store()
-    {
-        $this->form_validation->set_rules('title', 'Title', 'required');
-        $this->form_validation->set_rules('contents', 'Contents', 'required');
-
-        if($this->form_validation->run()) {
-            $this->board->store();      // Board_model.php store() 실행
-            redirect('/board');  // 리스트로 보냄
-        }
-        else {
-            echo "Store:필수데이터 입력누락";
-        }
-    }
 
     // 상세보기(글번호)
     public function show($idx)
