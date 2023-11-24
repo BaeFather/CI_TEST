@@ -43,10 +43,10 @@ foreach ($list as $LIST) {
             <td colspan="5" align="center">
                 <select id="searchField" name="searchField">
                     <option value="">::검색::</option>
-                    <option value="title">제목</option>
-                    <option value="contents">내용</option>
+                    <option value="title" <?=($searchField=='title')?'selected':''?>>제목</option>
+                    <option value="contents" <?=($searchField=='contents')?'selected':''?>>내용</option>
                 </select>
-                <input type="text" id="keyword" name="keyword">
+                <input type="text" id="keyword" name="keyword" value="<?=$keyword?>">
                 <input type="submit" value="검색">
             </td>
         </tr>

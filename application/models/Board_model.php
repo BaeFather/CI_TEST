@@ -1,9 +1,10 @@
 <?php
 
-class Board_Model extends CI_Model {
+class Board_model extends CI_Model {
 
     public function __construct()
     {
+		parent::__construct();
         $this->load->database();
         $this->load->helper('url');
     }
@@ -25,28 +26,35 @@ class Board_Model extends CI_Model {
     public function get($idx)
     {
         $board = $this->db->get_where('boards', ['idx' => $idx])->row();
-        //var_dump($board);
         return $board;
     }
 
-    public function getAll($type='all', $limit=5, $from_record=0)
+    public function getAll($type='all', $where=array(), $limit=5, $from_record=0)
     {
 
-        $this->db->where('isHide', '');
+		$board = $this->db->where('isHide','');
 
         if($type=='count') {
             /** 전체 게시글 카운트 **/
-            $board = $this->db->get('boards')->num_rows();
+			$board = $this->db
+				->like($where)
+				->count_all_results('boards');
+
+            //$board = $this->db->get('boards')->num_rows();
         }
         else {
             /** 전체 게시글 추출 **/
-            $this->db->limit($limit, $from_record);
-            $this->db->order_by('idx', 'DESC');
-            $board = $this->db->get('boards')->result();
-            //echo $this->db->last_query();     // 쿼리출력
+            $board = $this->db
+				->like($where)
+				->order_by('idx', 'DESC')
+				->limit($limit, $from_record)
+				->get('boards')
+				->result();
+			echo $this->db->last_query();     // 쿼리출력
         }
 
         //var_dump($board);
+
         return $board;
     }
 
