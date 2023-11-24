@@ -40,7 +40,7 @@ foreach ($list as $LIST) {
     </tr>
     <form id="searchForm" method="get">
         <tr>
-            <td colspan="5" align="center">
+            <td colspan="5" style="text-align: center">
                 <select id="searchField" name="searchField">
                     <option value="">::검색::</option>
                     <option value="title" <?=($searchField=='title')?'selected':''?>>제목</option>
