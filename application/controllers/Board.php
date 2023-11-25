@@ -71,6 +71,7 @@ class Board extends CI_Controller {
 		$this->form_validation->set_rules('title', 'Title', 'required');
 		$this->form_validation->set_rules('contents', 'Contents', 'required');
 
+		// 데이터 유효성 검사
 		if($this->form_validation->run()) {
 			$this->board_m->store();
 			redirect('/board');  // 리스트로 보냄
@@ -84,7 +85,7 @@ class Board extends CI_Controller {
     public function show($idx)
     {
 		$this->board_m->countup($idx);
-		echo $this->db->last_query();
+		//echo $this->db->last_query();
         $data['view'] = $this->board_m->get($idx);
 
         $this->load->view('board/show', $data);

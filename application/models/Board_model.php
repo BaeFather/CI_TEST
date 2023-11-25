@@ -39,8 +39,9 @@ class Board_model extends CI_Model {
 			$board = $this->db
 				->like($where)
 				->count_all_results('boards');
-
             //$board = $this->db->get('boards')->num_rows();
+
+			//echo $this->db->last_query();     // 쿼리출력
         }
         else {
             /** 전체 게시글 추출 **/
@@ -50,7 +51,8 @@ class Board_model extends CI_Model {
 				->limit($limit, $from_record)
 				->get('boards')
 				->result();
-			echo $this->db->last_query();     // 쿼리출력
+
+			//echo $this->db->last_query();     // 쿼리출력
         }
 
         //var_dump($board);
