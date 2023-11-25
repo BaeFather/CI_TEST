@@ -10,8 +10,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 ci 어서오세요!!
 
-<br />
-<a href="/board">게시판</a>
-
+<br>
+<a href="/board">게시판</a><br>
+<a href="/members/join">회원가입</a><br>
+<a href="/members/lists">회원목록</a>
 </body>
 </html>
