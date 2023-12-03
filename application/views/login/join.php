@@ -1,5 +1,5 @@
 <div class="container">
-	<?=form_open('members/store'); ?>
+	<?=form_open('members/store', array('method'=>'post', 'id'=>'loginForm')); ?>
 		<dl>
 			<dt>email</dt>
 			<dd>
@@ -9,10 +9,11 @@
 		<dl>
 			<dt>Password</dt>
 			<dd>
-				<input type="text" name="passwd" value="" />
+				<input type="password" name="passwd" value="" />
 			</dd>
 		</dl>
-
-	<button type="submit">저장하기</button>
-	<? form_close(); ?>
+		<dl>
+			<dd><button type="submit">회원가입</button></dd>
+		</dl>
+	<?=form_close();?>
 </div>

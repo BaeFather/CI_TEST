@@ -13,6 +13,7 @@ ci 어서오세요!!
 <br>
 <a href="/board">게시판</a><br>
 <a href="/members/join">회원가입</a><br>
-<a href="/members/lists">회원목록</a>
+<a href="/members/lists">회원목록</a><br>
+<a href="/members/login">로그인</a>
 </body>
 </html>
